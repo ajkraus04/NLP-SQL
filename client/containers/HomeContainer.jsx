@@ -87,8 +87,11 @@ const HomeContainer = () => {
     <div className="bg-slate-800">
       <Menu login={true} />
       <div className="flex w-screen ">
-        <div className="grid w-1/2 h-96 border rounded-md border-8 mt-10 ml-10 text-white font-mono shadow-md">
-          <div id="queryData" className="self-start ml-5">
+        <div className="grid w-1/2 h-96 border rounded-md border-8 mt-10 ml-10 text-white font-mono shadow-md mb-0">
+          <h2 className="mx-auto mt-5 h-10 text-3xl font-bold">
+            Chat with your DB
+          </h2>
+          <div id="queryData" className="self-start ml-5 ">
             {/* This is where the query responses get appended too. */}
           </div>
           <form id="forms" className="self-end mx-auto">
@@ -101,7 +104,7 @@ const HomeContainer = () => {
               onChange={(e) => handleChangeQuery(e)}
             />
             <button
-              className="bg-slate-800 text-white border mt-2 mx-2 p-2 shadow-lg"
+              className="bg-slate-800  hover:bg-slate-900 text-white border mt-2 mx-2 p-2 shadow-lg"
               type="Enter"
               value="Enter"
               onClick={(e) => submitQuery(e)}
@@ -125,7 +128,7 @@ const HomeContainer = () => {
                 />
 
                 <button
-                  className="text-white p-2 font-mono border ml-2 shadow-lg"
+                  className=" bg-green-500 hover:bg-green-600 text-white p-2 font-mono border ml-2 shadow-lg"
                   onClick={(e) => handleClick(e)}
                 >
                   Add
@@ -135,14 +138,14 @@ const HomeContainer = () => {
               <>
                 <p className="text-white font-mono text-sm">{uri}</p>
                 <button
-                  className="text-white p-2 border ml-2 shadow-lg"
+                  className="bg-red-500 hover:bg-red-600 text-white p-2 border ml-2 shadow-lg"
                   onClick={(e) => handleClick(e)}
                 >
                   Delete
                 </button>
               </>
             )}
-            <div className="bg-red-500 w-32 mt-20">
+            <div className="bg-red-500 hover:bg-red-600 w-32 mt-20">
               <button onClick={(e) => deleteAcct(e)}>
                 <Link to="/">Deactivate Account</Link>
               </button>

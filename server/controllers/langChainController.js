@@ -6,7 +6,9 @@ const langchainController = {};
 langchainController.handleQuery = async (req, res, next) => {
   console.log('run');
   const { query, uri } = req.body;
-  const cached = await Response.findOne({ query });
+  const question = query.toLowerCase();
+  const cached = await Response.findOne({ query: question });
+  console.log(cached);
   if (cached) {
     console.log('Sending Cached result to user');
     return res.status(200).json(cached.response);

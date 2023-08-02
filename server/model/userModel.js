@@ -1,18 +1,16 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { bool } = require('prop-types');
 const Schema = mongoose.Schema;
 
 const SALT_WORK_FACTOR = 10;
-const mongoURI = process.env.MONGO_URI;
 
 //Connect to DB
-mongoose.connect(mongoURI);
+mongoose.connect(process.env.MONGO_URI);
 
 const sessionSchema = new Schema({
   cookieId: { type: String, required: true, unique: true },
-  createdAt: { type: Date, expires: 30, default: Date.now },
+  createdAt: { type: Date, expires: 300, default: Date.now },
 });
 
 const Session = mongoose.model('Session', sessionSchema);
