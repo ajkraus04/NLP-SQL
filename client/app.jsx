@@ -6,7 +6,7 @@ import HomeContainer from './containers/HomeContainer.jsx';
 
 const App = () => {
   return (
-    <div className="bg-white flex h-screen">
+    <div className="bg-slate-800 flex h-screen">
       <BrowserRouter>
         <Routes>
           <Route path="/" Component={MainContainer} />

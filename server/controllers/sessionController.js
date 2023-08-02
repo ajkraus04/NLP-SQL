@@ -25,7 +25,8 @@ sessionController.isLoggedIn = async (req, res, next) => {
     const { ssid } = req.cookies;
     const session = await Session.findOne({ cookieId: ssid });
     if (!session) {
-      return res.status(400).redirect('/signup');
+      console.log('hit');
+      return res.status(200).json('false');
     } else {
       return next();
     }
@@ -37,4 +38,5 @@ sessionController.isLoggedIn = async (req, res, next) => {
     });
   }
 };
+
 module.exports = sessionController;

@@ -7,7 +7,7 @@ const SignupContainer = () => {
 
   return (
     <div className="bg-slate-800">
-      <Menu />
+      <Menu login={false} />
       <Login signup={true} />
     </div>
   );

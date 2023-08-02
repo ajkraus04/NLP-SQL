@@ -9,6 +9,7 @@ cookieController.setSSIDCookie = async (req, res, next) => {
     const user = await User.findOne({ username });
     console.log('Found User: ', user);
     res.cookie('ssid', user._id, { httpOnly: true });
+    res.cookie('username', username, { httpOnly: true });
     res.locals.ssid = user._id.toString();
     console.log(res.locals.ssid);
     return next();

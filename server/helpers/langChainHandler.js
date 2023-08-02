@@ -5,11 +5,11 @@ const { SqlDatabase } = require('langchain/sql_db');
 const { createSqlAgent, SqlToolkit } = require('langchain/agents/toolkits/sql');
 const { DataSource } = require('typeorm');
 
-const runQuery = async (input) => {
+const runQuery = async (input, uri) => {
   //Connect to DataBase using TYPEORM
   const postGresDataSource = new DataSource({
     type: 'postgres',
-    url: 'postgres://afegfjsf:ytDM_tenSXTMPOFRHsksQ8LijKtXLfws@stampy.db.elephantsql.com/afegfjsf',
+    url: uri,
   });
 
   //check if database connection works
@@ -28,6 +28,7 @@ const runQuery = async (input) => {
 
   //Temperature of 0 means that generally the same query produces the same answer
   const model = new OpenAI({
+    modelName: 'gpt-4',
     temperature: 0,
     openAIApiKey: process.env.OPENAI_API_KEY,
   });
@@ -43,8 +44,10 @@ const runQuery = async (input) => {
   const result = await executor.call({ input });
 
   console.log(`Results: ${result.output}`);
-  console.log(typeof result.output);
+
+  //Answer to the querys
   const answer = result.output;
+
   console.log(
     `Got intermediate steps ${JSON.stringify(
       result.intermediateSteps,

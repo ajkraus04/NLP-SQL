@@ -24,7 +24,7 @@ router.post(
   '/query',
   langchainController.handleQuery,
   langchainController.queryDB,
-  (req, res) => res.status(200).send(res.locals.data)
+  (req, res) => res.status(200).json(res.locals.data)
 );
 
 /**
@@ -45,5 +45,17 @@ router.post(
   sessionController.startSession,
   (req, res) => res.status(200).redirect('/home')
 );
+
+router.post('/saveQuery', userController.saveQuery, (req, res) =>
+  res.status(200)
+);
+
+router.delete('/deleteAcct', userController.deleteUser, (req, res) => {
+  return res.status(200).send('Account Deleted');
+});
+
+router.get('/isLoggedIn', sessionController.isLoggedIn, (req, res) => {
+  return res.status(200).json('true');
+});
 
 module.exports = router;

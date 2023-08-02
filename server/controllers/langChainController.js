@@ -1,11 +1,17 @@
 const runQuery = require('../helpers/langChainHandler.js');
+const { Response } = require('../model/userModel.js');
 
 const langchainController = {};
 
-langchainController.handleQuery = (req, res, next) => {
+langchainController.handleQuery = async (req, res, next) => {
   console.log('run');
-  const { query } = req.body;
-  if (!query) {
+  const { query, uri } = req.body;
+  const cached = await Response.findOne({ query });
+  if (cached) {
+    console.log('Sending Cached result to user');
+    return res.status(200).json(cached.response);
+  }
+  if (!query || !uri) {
     return next({
       log: 'Express error handler caught error in langChainController.handleQuery',
       status: 400,
@@ -16,9 +22,9 @@ langchainController.handleQuery = (req, res, next) => {
 };
 
 langchainController.queryDB = async (req, res, next) => {
-  const { query } = req.body;
+  const { query, uri } = req.body;
   try {
-    const output = await runQuery(query);
+    const output = await runQuery(query, uri);
     res.locals.data = output;
     return next();
   } catch (err) {

@@ -1,4 +1,4 @@
-const { User } = require('../model/userModel');
+const { User, Response } = require('../model/userModel');
 const bcrypt = require('bcrypt');
 
 const userController = {};
@@ -44,6 +44,52 @@ userController.createUser = async (req, res, next) => {
     method: 'Error in createUser in userController.',
     log: 'Error wrong username or password',
   });
+};
+
+userController.saveQuery = async (req, res, next) => {
+  try {
+    const { username } = req.cookies;
+    const { query, response } = req.body;
+
+    const doc = await User.findOne({ username });
+    doc.pastQueries.push({ query, response });
+    const updated = await doc.save();
+
+    try {
+      const responses = await Response.create({
+        query: query.toLowerCase(),
+        response,
+      });
+    } catch (err) {
+      console.log('Not adding dupped value');
+    }
+    console.log('This was hit');
+    return next();
+  } catch (err) {
+    return next({
+      method: 'Error in userController.saveQuery middleware',
+      status: 400,
+      err: { message: 'Error when request was received' },
+    });
+  }
+};
+
+userController.deleteUser = async (req, res, next) => {
+  try {
+    const { username } = req.cookies;
+
+    const deletedUser = await User.deleteOne({ username });
+    res.clearCookie('username');
+    res.clearCookie('ssid');
+    console.log('user deleted');
+    return next();
+  } catch (err) {
+    return next({
+      method: 'Error in userController.deleteUser middleware',
+      status: 400,
+      message: { err: 'A severe error has occured' },
+    });
+  }
 };
 
 module.exports = userController;
