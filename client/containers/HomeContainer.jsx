@@ -87,7 +87,7 @@ const HomeContainer = () => {
     <div className="bg-slate-800">
       <Menu login={true} />
       <div className="flex w-screen ">
-        <div className="grid w-1/2 h-96 border rounded-md border-8 mt-10 ml-10 text-white font-mono shadow-md mb-0">
+        <div className="grid w-1/2 h-96 border-white rounded-md border-8 mt-10 ml-10 text-white font-mono shadow-md mb-0">
           <h2 className="mx-auto mt-5 h-10 text-3xl font-bold">
             Chat with your DB
           </h2>
@@ -95,7 +95,7 @@ const HomeContainer = () => {
             {/* This is where the query responses get appended too. */}
           </div>
           <form id="forms" className="self-end mx-auto">
-            <label className="p-2 font-mono">Query: </label>
+            <label className="p-2 text-lg font-mono">Query: </label>
             <input
               className="border w-96 p-2 font-mono text-black"
               type="text"
@@ -113,7 +113,7 @@ const HomeContainer = () => {
             </button>
           </form>
         </div>
-        <div className="grid w-1/2 h-96 border mt-10 mr-10 ml-5 text-white border-8 rounded-md font-mono shadow-md">
+        <div className="grid w-1/2 h-96 border-white mt-10 mr-10 ml-5 text-white border-8 rounded-md font-mono shadow-md">
           <h2 className=" mx-auto mt-5 text-3xl font-bold">Settings</h2>
           <div className="ml-10">
             <p className="font-black">Database URI</p>
