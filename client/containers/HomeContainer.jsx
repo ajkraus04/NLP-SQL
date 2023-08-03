@@ -3,6 +3,7 @@ import Menu from '../components/Menu.jsx';
 import { useState } from 'react';
 import saveQuery from '../actions.js';
 import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 
 const HomeContainer = () => {
   // add pertinent state here
@@ -57,6 +58,71 @@ const HomeContainer = () => {
       query: currQuery,
       uri,
     };
+
+    const p = document.createElement('div');
+
+    p.className = 'text-sm text-left text-green-500 font-mono';
+    p.innerHTML = `<div>
+    <style>
+  
+  .loader-dots div {
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .loader-dots div:nth-child(1) {
+      left: 8px;
+      animation: loader-dots1 0.6s infinite;
+  }
+  .loader-dots div:nth-child(2) {
+      left: 8px;
+      animation: loader-dots2 0.6s infinite;
+  }
+  .loader-dots div:nth-child(3) {
+      left: 32px;
+      animation: loader-dots2 0.6s infinite;
+  }
+  .loader-dots div:nth-child(4) {
+      left: 56px;
+      animation: loader-dots3 0.6s infinite;
+  }
+  @keyframes loader-dots1 {
+      0% {
+          transform: scale(0);
+      }
+      100% {
+          transform: scale(1);
+      }
+  }
+  @keyframes loader-dots3 {
+      0% {
+          transform: scale(1);
+      }
+      100% {
+          transform: scale(0);
+      }
+  }
+  @keyframes loader-dots2 {
+      0% {
+          transform: translate(0, 0);
+      }
+      100% {
+          transform: translate(24px, 0);
+      }
+  }
+  </style>
+  
+  <div class="fixed gap-2 z-50  flex items-center justify-center " >
+      <p>AI: Thinking  </p>
+      <div class="loader-dots block relative w-20 h-5 mt-2">
+        <div class="absolute top-0 mt-1 w-2 h-2  rounded-full bg-green-500"></div>
+        <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-green-500"></div>
+        <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-green-500"></div>
+        <div class="absolute top-0 mt-1 w-2 h-2 rounded-full bg-green-500"></div>
+      </div>
+    </div>
+  </div>`;
+
+    document.querySelector('#queryData').appendChild(p);
+
     const response = await fetch('/api/query', {
       method: 'POST',
       headers: {
@@ -67,12 +133,8 @@ const HomeContainer = () => {
 
     const ans = await response.json();
     console.log(ans);
-
-    const p = document.createElement('p');
+    p.innerHTML = '';
     p.textContent = 'Ans: ' + ans;
-    p.className = 'text-sm text-left text-green-700 font-mono';
-
-    document.querySelector('#queryData').appendChild(p);
 
     saveQuery({ query: currQuery, response: ans });
   };
@@ -84,7 +146,7 @@ const HomeContainer = () => {
   };
 
   return (
-    <div className="bg-slate-800">
+    <div className="bg-gradient-to-r from-slate-800 to-slate-900">
       <Menu login={true} />
       <div className="flex w-screen ">
         <div className="grid w-1/2 h-96 border-white rounded-md border-8 mt-10 ml-10 text-white font-mono shadow-md mb-0">
@@ -145,7 +207,7 @@ const HomeContainer = () => {
                 </button>
               </>
             )}
-            <div className="bg-red-500 hover:bg-red-600 w-32 mt-20">
+            <div className="bg-red-500 hover:bg-red-600 w-24 mt-20">
               <button onClick={(e) => deleteAcct(e)}>
                 <Link to="/">Deactivate Account</Link>
               </button>

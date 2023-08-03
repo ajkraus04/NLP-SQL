@@ -7,7 +7,7 @@ const MainContainer = () => {
   // add pertinent state here
 
   return (
-    <div className="bg-dark-slate">
+    <div className="bg-gradient-to-r from-slate-800 to-slate-900">
       <Menu login={false} />
       <Login signup={false} />
     </div>
